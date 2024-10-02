@@ -1,11 +1,17 @@
-<form (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
   <div>
     <input
       class="form-control my-2"
       placeholder="Name"
       name="name"
       [(ngModel)]="user.name"
+      required
+      #name="ngModel"
     />
+    @if (name.invalid && (name.dirty || name.touched)) { @if
+    (name.errors!['required']) {
+    <div class="text-danger">Nombre es requerido</div>
+    } }
   </div>
   <div>
     <input
@@ -13,16 +19,32 @@
       placeholder="Lastname"
       name="lastname"
       [(ngModel)]="user.lastname"
+      required
+      #lastname="ngModel"
     />
+    @if (lastname.invalid && (lastname.dirty || lastname.touched)) { @if
+    (lastname.errors!['required']) {
+    <div class="text-danger">Apellido es requerido</div>
+    } }
   </div>
 
   <div>
     <input
+      type="email"
       class="form-control my-2"
       placeholder="Email"
       name="email"
       [(ngModel)]="user.email"
+      required
+      email
+      #email="ngModel"
     />
+    @if (email.invalid && (email.dirty || email.touched)) {
+    @if(email.errors!['required']) {
+    <div class="text-danger">El correo es requerido</div>
+    } @if(email.errors!['email']) {
+    <div class="text-danger">El email no tiene formato correcto</div>
+    } }
   </div>
 
   <div>
@@ -31,7 +53,16 @@
       placeholder="Username"
       name="username"
       [(ngModel)]="user.username"
+      required
+      minlength="8"
+      #username="ngModel"
     />
+    @if (username.invalid && (username.dirty || username.touched)) { @if
+    (username.errors!['required']) {
+    <div class="text-danger">El username es requerido</div>
+    } @if (username.errors!['minlength']) {
+    <div class="text-danger">Username debe tener al menos 8 caracteres!</div>
+    } }
   </div>
   <div>
     <input
@@ -40,9 +71,24 @@
       placeholder="Password"
       name="password"
       [(ngModel)]="user.password"
+      required
+      minlength="6"
+      #password="ngModel"
     />
+    @if (password.invalid && (password.dirty || password.touched)) { @if
+    (password.errors!['required']) {
+    <div class="text-danger">El password es requerido</div>
+    } @if (password.errors!['minlength']) {
+    <div class="text-danger">Password debe tener al menos 6 caracteres!</div>
+    } }
   </div>
   <div>
-    <button type="submit" class="btn btn-primary my-2">Create</button>
+    <button
+      type="submit"
+      class="btn btn-primary my-2"
+      [disabled]="userForm.invalid"
+    >
+      Create
+    </button>
   </div>
 </form>
