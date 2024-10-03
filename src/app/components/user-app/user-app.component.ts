@@ -15,6 +15,7 @@ export class UserAppComponent implements OnInit {
   title = 'User List!';
   users: User[] = [];
   userSelected: User;
+  open = false;
 
   constructor(private userService: UserService) {
     this.userSelected = new User();
@@ -36,6 +37,7 @@ export class UserAppComponent implements OnInit {
       icon: "success"
     });
     this.userSelected = new User();
+    this.setOpen();
   }
 
   removeUser(id: number) {
@@ -61,5 +63,10 @@ export class UserAppComponent implements OnInit {
 
   setSelectedUser(userRow: User) {
     this.userSelected = { ...userRow };
+    this.open = true;
+  }
+
+  setOpen() {
+    this.open = !this.open;
   }
 }

@@ -1,12 +1,17 @@
 <div class="container my-4">
   <h3>{{ title }}</h3>
+  <button class="btn btn-primary" (click)="setOpen()">
+    {{ open ? "Close" : "Create User" }}
+  </button>
   <div class="row">
-    <div class="col">
+    @if (open) {
+    <div class="col-4">
       <user-form
         [user]="userSelected"
         (newUserEventEmitter)="addUser($event)"
       />
     </div>
+    } @else {
     <div class="col">
       <user
         [users]="users"
@@ -14,5 +19,6 @@
         (selectedUserEventEmitter)="setSelectedUser($event)"
       />
     </div>
+    }
   </div>
 </div>
