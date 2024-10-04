@@ -1,5 +1,7 @@
 <h3>{{ title }}</h3>
-<button class="btn btn-primary">Create User</button>
+<button class="btn btn-primary my-3" [routerLink]="['/users/create']">
+  Create User
+</button>
 @if (users.length > 0) {
 <table class="table table-hover table-striped">
   <thead>
